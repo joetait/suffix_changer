@@ -27,20 +27,28 @@ args = sys.argv[1]
 
 file_list =  commands.getoutput("ls")
 
-s = re.findall(".*", file_list)
+files = re.findall(".*", file_list)
 
-def remove_files_with_wrong_suffix(s, suffix):
+def remove_files_with_wrong_suffix(files, suffix):
     newlist = []
-    for i in s:
+    output_list = []
+    for i in files:
         if len(i) >= len(suffix):
             newlist.append(i)
     for i in newlist:
-        if i[len(i)-len(suffix):] == suffix:
-            print i
+        if i[len(i)-len(suffix):].lower() == suffix.lower():
+            output_list.append(i)
         else:
             pass
+    return output_list
             
-remove_files_with_wrong_suffix(s, args)
+def rename(files_to_rename, suffix):
+    for i in files_to_rename:
+        os.rename(i, i.lower)
+
+files_to_rename = remove_files_with_wrong_suffix(files, args)
+print files_to_rename
+rename = (files_to_rename, args)
 
 
 
