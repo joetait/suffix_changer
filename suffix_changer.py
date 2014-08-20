@@ -18,7 +18,29 @@
 #along with suffix_changer. If not, see <http://www.gnu.org/licenses/>.
 
 
+import os
+import sys
+import commands
+import re
 
+args = sys.argv[1]
+
+file_list =  commands.getoutput("ls")
+
+s = re.findall(".*", file_list)
+
+def remove_files_with_wrong_suffix(s, suffix):
+    newlist = []
+    for i in s:
+        if len(i) >= len(suffix):
+            newlist.append(i)
+    for i in newlist:
+        if i[len(i)-len(suffix):] == suffix:
+            print i
+        else:
+            pass
+            
+remove_files_with_wrong_suffix(s, args)
 
 
 
