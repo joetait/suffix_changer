@@ -23,11 +23,6 @@ import sys
 import commands
 import re
 
-args = sys.argv[1]
-
-file_list =  commands.getoutput("ls")
-
-files = re.findall(".*", file_list)
 
 def remove_files_with_wrong_suffix(files, suffix):
     newlist = []
@@ -46,14 +41,28 @@ def rename(files_to_rename, suffix):
     for i in files_to_rename:
         os.rename(i, i.lower())
 
-files_to_rename = remove_files_with_wrong_suffix(files, args)
-print files_to_rename
-rename(files_to_rename, args)
 
 
 
 
+def main():
+    args = sys.argv
+    if len(args) == 2:
+        suffix = args[1]
+    else:
+        print "You must input which suffix you wish to make lower case"
+        sys.exit(1)
 
+    file_list =  commands.getoutput("ls")
+
+    files = re.findall(".*", file_list)
+
+    files_to_rename = remove_files_with_wrong_suffix(files, suffix)
+    rename(files_to_rename, suffix)
+
+
+if __name__ == "__main__":
+    main()
 
 
 
