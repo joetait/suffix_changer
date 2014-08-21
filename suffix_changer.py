@@ -44,11 +44,11 @@ def remove_files_with_wrong_suffix(files, suffix):
             
 def rename(files_to_rename, suffix):
     for i in files_to_rename:
-        os.rename(i, i.lower)
+        os.rename(i, i.lower())
 
 files_to_rename = remove_files_with_wrong_suffix(files, args)
 print files_to_rename
-rename = (files_to_rename, args)
+rename(files_to_rename, args)
 
 
 
